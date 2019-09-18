@@ -1,6 +1,4 @@
 Datum: 2019-09-18, Kontonummer : 1995, Belopp: 1000 kr, Typ: Insättning.
-Datum: 2019-09-18, Kontonummer : 1951, Belopp: 500 kr, Typ: Insättning.
 Datum: 2019-09-18, Kontonummer : 1995, Belopp: 500 kr, Typ: Uttag.
+Datum: 2019-09-18, Kontonummer : 1951, Belopp: 500 kr, Typ: Insättning.
 Datum: 2019-09-18, Kontonummer : 1951, Belopp: 250 kr, Typ: Uttag.
-Datum: 2019-09-18, Kontonummer : 1995, Belopp: 100 kr, Typ: Insättning.
-Datum: 2019-09-18, Kontonummer : 1951, Belopp: 100 kr, Typ: Insättning.
