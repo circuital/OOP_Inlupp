@@ -1,8 +1,6 @@
 import os
 import datetime
 
-kontoDict = {}
-
 def GetSelection(val):
     while True:
         try:
@@ -37,16 +35,25 @@ def GetTransaktion():
         except: 
             print("Felaktigt format, ange endast siffror.")
 
+def SparaKonton():
+    if os.path.isfile("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/kontofil.txt"):
+        os.remove("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/kontofil.txt")
+    kontoFil = open("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/kontofil.txt", "w")
+    kontoFil.write(str(kontoDict))
+    kontoFil.close()
+
+
 def Transaktioner(transaktion):
     transaktionsFil = open("transaktionsfil.txt","a+")
     transaktionsFil.write(transaktion + "\n")
     transaktionsFil.close()
-
+  
 def SkapaKonto(): #FIXA
     print("***Skapa konto***")
     kontoNummer = GetKontoNummer()
     if kontoNummer not in kontoDict:
         kontoDict[kontoNummer] = 0
+        SparaKonton()
         print("Konto har skapats.")
     else:
         print("Kontot existerar redan.")
@@ -58,7 +65,7 @@ def LoggaIn():
         print("Du är inloggad.")
         MenyB(kontoNummer)
     else:
-        print("Felaktigt kontonummer.")
+        print("Kontot existerar inte.")
    
 def MenyA():
     while True:
@@ -78,6 +85,7 @@ def Insättning(kontoNummer):
     print("***Insättning***")
     belopp, datum = GetTransaktion()
     kontoDict[kontoNummer] += belopp
+    SparaKonton()
     print(f"Du har satt in {belopp} kr.")
     insättningstransaktion = f"Datum: {datum}, Kontonummer : {kontoNummer}, Belopp: {belopp} kr, Typ: Insättning."
     Transaktioner(insättningstransaktion)
@@ -87,6 +95,7 @@ def Uttag(kontoNummer):
     belopp, datum = GetTransaktion()
     if belopp <= kontoDict[kontoNummer]:
         kontoDict[kontoNummer] -= belopp
+        SparaKonton()
         print(f"Du har tagit ut {belopp} kr.")
         uttagstransaktion = f"Datum: {datum}, Kontonummer : {kontoNummer}, Belopp: {belopp} kr, Typ: Uttag."
         Transaktioner(uttagstransaktion)
@@ -114,11 +123,16 @@ def MenyB(kontoNummer):
         elif selection == 4:
             break
 
-if os.path.isfile("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/transaktionsfil.txt"):
-    os.system("start "+"transaktionsfil.txt")
-    MenyA()
+if os.path.isfile("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/kontofil.txt"): 
+    kontoFil = open("C:/Users/elvir/source/repos/Inlämningar/Inlämningar/kontofil.txt", "r")
+    for line in kontoFil:
+        kontoDict = eval(line)
+    kontoFil.close()
 else:
-    MenyA()
+    kontoDict = {}
+
+MenyA()
+
 
 
 
